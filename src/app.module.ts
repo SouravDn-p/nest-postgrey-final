@@ -9,10 +9,16 @@ import appConfig from './config/app.config';
 import jwtConfig from './config/jwt.config';
 import cloudinaryConfig from './config/cloudinary.config';
 
+const ENV = process.env.NODE_ENV;
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+     envFilePath: [
+      `.env.local`,
+      `.env.${process.env.NODE_ENV || 'development'}`,
+    ],
       load: [appConfig, jwtConfig, cloudinaryConfig],
     }),
     ProjectsModule,

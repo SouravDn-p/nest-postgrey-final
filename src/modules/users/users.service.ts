@@ -1,23 +1,29 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { User } from './types/userTypes';
 
 @Injectable()
 export class UsersService {
-     private readonly users : User[] = [
+    private readonly users : User[] = [
     {
       userId: 1,
       username: 'john',
       password: 'changeme',
+      role: 'admin',
     },
     {
       userId: 2,
       username: 'maria',
       password: 'guess',
+      role: 'user',
     },
   ];
 
-  async findone(username: number): Promise<User | undefined> {
-    return this.users.find(user => user.userId === username);
+  async findone(id: number): Promise<User | undefined> {
+    const user = this.users.find(user => user.userId === id);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
   }
 
   async findAll(): Promise<User[] | undefined> {
