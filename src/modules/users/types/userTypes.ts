@@ -1,8 +1,11 @@
-export type User =
-{
-    userId: number;
-    username: string;
-    // email: string;
-    role: string;
-    password: string;
+import { UserRole } from "src/common/types/enum/roles.enum";
+
+export interface User {
+  id: number;
+  username: string;
+  email?: string | null;
+  password: string;
+  role: UserRole;
+  createdAt: Date;
+  updatedAt: Date;
 }
