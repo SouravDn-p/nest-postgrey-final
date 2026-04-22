@@ -6,17 +6,27 @@ datasource db {
   provider = "postgresql"
 }
 
-enum Role {
-  ADMIN
+enum UserRole {
   USER
+  VENDOR
+  ADMIN
 }
-
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  email String  @unique
-  role      Role     @default(USER)
-  password String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id        Int     @id @default(autoincrement())
+  firstName     String    @db.VarChar(100)
+  lastName      String?   @db.VarChar(100)
+  email         String    @unique @db.VarChar(255)
+  phone         String?   @unique @db.VarChar(20)
+  avatarUrl     String?   @db.VarChar(500)
+  isVerified    Boolean   @default(false)
+  isBlocked     Boolean   @default(false)
+  isDeleted     Boolean   @default(false)
+  passwordHash  String?   @db.VarChar(255)
+  role          UserRole  @default(USER)
+  walletBalance Decimal   @default(0.00) @db.Decimal(12, 2)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  lastLoginAt   DateTime?
+  deletedAt     DateTime?
+  
 } 

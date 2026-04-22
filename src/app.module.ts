@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
 import { PrismaModule } from './common/prisma/prisma.module';
+import { CloudinaryModule } from './services/cloudinary/cloudinary.module';
 import appConfig from './config/app.config';
 import jwtConfig from './config/jwt.config';
 import cloudinaryConfig from './config/cloudinary.config';
@@ -25,6 +26,7 @@ const ENV = process.env.NODE_ENV;
     AuthModule,
     UsersModule,
     PrismaModule,
+    CloudinaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
