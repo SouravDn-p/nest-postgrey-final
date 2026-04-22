@@ -15,11 +15,12 @@ export class RefreshStrategy extends PassportStrategy(
       ]),
       ignoreExpiration: false,
       secretOrKey: process.env.JWT_REFRESH_SECRET as string,
-      // passReqToCallback: true,
+      passReqToCallback: true,
     };
 
     super(options);
   }
+  
 
   async validate(req: Request, payload: any) {
     const refreshToken = req.cookies?.refreshToken;
@@ -29,7 +30,7 @@ export class RefreshStrategy extends PassportStrategy(
     }
 
     return {
-      userId: payload.sub,
+      userId: Number(payload.sub),
       email: payload.email,
       role: payload.role,
       refreshToken,

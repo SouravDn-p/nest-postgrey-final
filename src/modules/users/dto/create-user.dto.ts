@@ -39,9 +39,7 @@ export class CreateUserDto {
   @IsOptional()
   role?: UserRole;
 
-  @ApiPropertyOptional({ example: 'https://example.com/avatar.png' })
-  @IsString()
+  @ApiProperty({ type: 'string', format: 'binary', required: false })
   @IsOptional()
-  @MaxLength(500)
-  avatarUrl?: string;
+  avatar?: any;
 }

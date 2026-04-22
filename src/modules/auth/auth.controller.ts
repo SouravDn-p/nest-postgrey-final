@@ -1,4 +1,5 @@
 import { BadRequestException, Body, Controller, Post, Res, UploadedFile, UseInterceptors, Get, UseGuards } from '@nestjs/common';
+import { ApiConsumes, ApiBody } from '@nestjs/swagger';
 import * as express from 'express';
 import { AuthService } from './auth.service';
 import { CloudinaryService } from 'src/services/cloudinary/cloudinary.service';
@@ -25,6 +26,8 @@ export class AuthController {
 
   @Post('register')
   @Public()
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: CreateUserDto })
   @UseInterceptors(FileInterceptor('avatar', imageMulterOptions))
   async register(
     @Body() createUserDto: CreateUserDto,
@@ -41,7 +44,8 @@ export class AuthController {
       imageUrl = upload.url;
     }
 
-    const user = await this.userService.create({ ...createUserDto, avatarUrl: imageUrl });
+    const { avatar, ...userData } = createUserDto;
+    const user = await this.userService.create({ ...userData, avatarUrl: imageUrl } as any);
     return ApiResponseHelper.success(user, 'User registered successfully', 201);
   }
 
