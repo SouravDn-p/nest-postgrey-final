@@ -1,11 +1,11 @@
-import { UserRole } from "src/common/types/enum/roles.enum";
+import { Role } from "@prisma/client";
 
 export interface User {
   id: number;
   username: string;
-  email?: string | null;
+  email: string;
   password: string;
-  role: UserRole;
+  role: Role;
   createdAt: Date;
   updatedAt: Date;
 }

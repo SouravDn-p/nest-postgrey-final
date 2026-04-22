@@ -10,4 +10,8 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+  @Get('favicon.ico')
+  favicon() {
+    return "custom favicon ";
+  }
 }

@@ -17,7 +17,7 @@ const ENV = process.env.NODE_ENV;
     ConfigModule.forRoot({
         isGlobal: true,
       envFilePath: [
-        `.env.local`,
+        `.env`,
         `.env.${process.env.NODE_ENV || 'development'}`,
       ],
       load: [appConfig, jwtConfig, cloudinaryConfig, databaseConfig],
